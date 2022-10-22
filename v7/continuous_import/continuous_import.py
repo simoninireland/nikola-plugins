@@ -93,8 +93,16 @@ class CommandContinuousImport(Command):
         for k, v in feed['metadata'].items():
             metadata[k] = self.get_data(item, v)
 
-        if 'tags' not in metadata:
-            metadata['tags'] = feed['tags']
+        # add feed category if any
+        if 'category' in feed:
+            metadata['category'] = feed['category']
+
+        # unify feed and metadata tags
+        if 'tags' in feed:
+            if 'tags' in metadata and len(metadata['tags']) > 0:
+                metadata['tags'] += ", " + feed['tags']
+            else:
+                metadata['tags'] = feed['tags']
 
         if dateutil.parser.parse(metadata['date'], ignoretz=True) < start_at:
             # skip old post
