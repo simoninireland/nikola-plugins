@@ -20,10 +20,12 @@ FEEDS = {
         'output_folder': 'posts/goodreads',
         'format': 'html',
         'lang': 'en',
+        'category': 'book-reviews',
         'tags': 'books, goodreads',
         'metadata': {
             'title': 'title',
             'date': ['user_read_at', 'user_date_added', 'published'],
+            'tags': 'user_shelves',
         }
     }
 }
